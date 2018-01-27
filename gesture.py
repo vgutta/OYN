@@ -37,6 +37,8 @@ print ("     | max      | avg     | min")
 for direction in ['x','y','z','w']:
     print(direction, '|', ort[direction].max(), '|', ort[direction].mean(), '|', ort[direction].min())
 
+lock = time.time()
+    
 for line in sys.stdin:
     line = line.rstrip().split(',')
     if line[0] == 'ORT':

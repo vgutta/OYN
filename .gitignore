@@ -1,4 +1,6 @@
 demo
+myo_collect
+*.pos
 
 # Created by https://www.gitignore.io/api/c++,emacs,python
 

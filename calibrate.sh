@@ -1,4 +1,4 @@
 #!/bin/bash
 
-./demo | tee check.txt | grep ORT
+./myo_collect | tee time.pos | grep ORT
 

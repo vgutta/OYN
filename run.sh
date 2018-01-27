@@ -1,4 +1,5 @@
 #!/bin/bash
 
-./demo | ./order_data.py
+./myo_collect | ./gesture.py
+
 

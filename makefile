@@ -1,7 +1,7 @@
 CC = g++
 DIR = $(shell pwd)
 CPPFLAGS = -F $(DIR) -framework myo -rpath @loader_path
-EXEC = demo
+EXEC = myo_collect
 
 all:
-	$(CC) $(CPPFLAGS) demo.cpp -o $(EXEC)
+	$(CC) $(CPPFLAGS) myo_collect.cpp -o $(EXEC)
