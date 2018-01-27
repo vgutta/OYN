@@ -39,10 +39,10 @@ for arr in [emg,ort,acc,gyr]:
     for key in arr.keys():
         arr[key] = np.array(arr[key])
             
-print "ORT"
-print "     | max      | avg     | min"
+print ("ORT")
+print ("     | max      | avg     | min")
 for direction in ['x','y','z','w']:
-    print direction, '|', ort[direction].max(), '|', ort[direction].mean(), '|', ort[direction].min()
+    print (direction, '|', ort[direction].max(), '|', ort[direction].mean(), '|', ort[direction].min())
 
 
 
