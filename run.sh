@@ -1,5 +1,5 @@
 #!/bin/bash
 
-./myo_collect | ./gesture.py
+./myo_collect | ./main.py
 
 
