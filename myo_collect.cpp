@@ -21,7 +21,7 @@ class DataCollector : public myo::DeviceListener {
 public:
   void onEmgData(myo::Myo* myo, uint64_t timestamp, const int8_t* emg)
   {
-    std::cout << "EMG";
+    std::cout << "1";
     for (size_t i=0; i<8; i++) {
       std::cout << ',' << static_cast<int>(emg[i]);
     }
@@ -30,7 +30,7 @@ public:
 
   void onOrientationData(myo::Myo *myo, uint64_t timestamp, const myo::Quaternion< float > &rotation)
   {
-    std::cout << "ORT"
+    std::cout << "4"
               << ',' << rotation.x()
               << ',' << rotation.y()
               << ',' << rotation.z()
@@ -50,14 +50,14 @@ public:
     float yaw = atan2(2.0f * (rotation.w() * rotation.z() + rotation.x() * rotation.y()),
 			1.0f - 2.0f * (rotation.y() * rotation.y() + rotation.z() * rotation.z()));
 
-    std::cout << "EUL"
+    std::cout << "2"
               << ',' << roll
               << ',' << pitch
               << ',' << yaw
               << std::endl;
   }
   void onAccelerometerData(myo::Myo *myo, uint64_t timestamp, const myo::Vector3< float > &accel) {
-    std::cout << "ACC"
+    std::cout << "0"
               << ',' << accel.x()
               << ',' << accel.y()
               << ',' << accel.z()
@@ -65,7 +65,7 @@ public:
   }
 
   void onGyroscopeData(myo::Myo *myo, uint64_t timestamp, const myo::Vector3< float > &gyro) {
-    std::cout << "GYR"
+    std::cout << "3"
               << ',' << gyro.x()
               << ',' << gyro.y()
               << ',' << gyro.z()
