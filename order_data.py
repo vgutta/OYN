@@ -47,7 +47,7 @@ for line in sys.stdin:
            float(line[3]) <= ort['z'].max() and \
            float(line[3]) >= ort['z'].min():
             if lock < time.time()-1.5:
-               os.system("say hello")
+               os.system("say it is now `date +%I`, `date +%M`")
                print("1")
                lock = time.time()
 
