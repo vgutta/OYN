@@ -1,40 +1,29 @@
-#!/bin/bash
+#!bin/bash
 
-REST=rest.pos
+echo "enter filename for data: "
+read POS 				#calibration data is written to POS file
 
-echo "enter filename: "
-read POS
 
-echo "press enter once in position "
-read
-
-./myo_collect > $POS &
-PID=$!
-sleep 1 && echo -n "calibrating"
-
-for N in 1 .. 4
+for index in 1 .. 5
 do
-    sleep 1 && echo -n "."
+	echo "press enter once in position "
+	read
+
+	#writes to file
+	./myo_collect >> $POS &
+	PID=$!
+	sleep 1
+	echo -n "calibrating"
+
+	for N in 1 .. 4
+	do
+	    sleep 1 && echo -n "."
+	done
+
+	sleep 1
+	kill $PID | /dev/null
+
+	echo "rest your arm"
+	sleep 3
+	echo
 done
-
-echo
-
-sleep 1 && kill $PID | /dev/null
-
-
-echo "press enter when in resting position"
-read
-
-./myo_collect > $REST &
-PID=$!
-sleep 1 && echo -n "calibrating"
-
-for N in 1 .. 4
-do
-    sleep 1 && echo -n "."
-done
-
-echo
-
-sleep 1 && kill $PID | /dev/null
-
