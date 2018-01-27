@@ -1,13 +1,6 @@
-#!/usr/bin/env python
-'''
-import os, sys
+#!/usr/bin/env python3
 
-for line in sys.stdin:
-    print line
-
-sys.exit(0)
-'''
-
+import os, sys, time
 import numpy as np
 
 f = open('check.txt')
@@ -39,10 +32,29 @@ for arr in [emg,ort,acc,gyr]:
     for key in arr.keys():
         arr[key] = np.array(arr[key])
             
-print "ORT"
-print "     | max      | avg     | min"
+print("ORT")
+print("     | max      | avg     | min")
 for direction in ['x','y','z','w']:
-    print direction, '|', ort[direction].max(), '|', ort[direction].mean(), '|', ort[direction].min()
+    print(direction, '|', ort[direction].max(), '|', ort[direction].mean(), '|', ort[direction].min())
 
+lock = time.time()
+
+for line in sys.stdin:
+    line = line.rstrip().split(',')
+    if line[0] == 'ORT':
+        if float(line[1]) <= ort['x'].max() and \
+           float(line[1]) >= ort['x'].min() and \
+           float(line[2]) <= ort['y'].max() and \
+           float(line[2]) >= ort['y'].min() and \
+           float(line[3]) <= ort['z'].max() and \
+           float(line[3]) >= ort['z'].min():
+            if lock < time.time()-1.5:
+               os.system("say hello")
+               print("1")
+               lock = time.time()
+
+        
+
+sys.exit(0)
 
 
