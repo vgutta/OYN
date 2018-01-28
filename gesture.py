@@ -17,7 +17,7 @@ class Gesture:
         for line in f:
             line = line.rstrip().split(',')
             if line[0] == 'EMG':
-                for i in range(1,8):
+                for i in range(1,9):
                     emg[i-1].append(float(line[i]))
     
             elif line[0] == 'ORT':
@@ -40,8 +40,11 @@ class Gesture:
         self.emg = emg
         self.acc = acc
         self.gyr = gyr
+
+        for i in range(8):
+            print(self.emg[i].max(),self.emg[i].mean(),self.emg[i].min())
                 
-    def in_gesture(self,x,y,z):
+    def in_position(self,x,y,z):
         return x <= self.ort['x'].max() and \
             x >= self.ort['x'].min() and \
             y <= self.ort['y'].max() and \
@@ -49,3 +52,11 @@ class Gesture:
             z <= self.ort['z'].max() and \
             z >= self.ort['z'].min()
 
+    def in_flex(self,emg):
+        valid = True
+        for sensor,config in zip(emg,self.emg.keys()):
+            valid = valid and \
+                    sensor <= self.emg[config].max() and \
+                    sensor >= self.emg[config].min()
+
+        return valid
