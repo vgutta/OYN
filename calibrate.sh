@@ -1,40 +1,45 @@
-#!/bin/bash
+-#!$/bin/bash
 
-REST=rest.pos
+echo "enter filename for data: "
+read POS 				#calibration data is written to POS file
 
-echo "enter filename: "
-read POS
 
-echo "press enter once in position "
-read
-
-./myo_collect > $POS &
-PID=$!
-sleep 1 && echo -n "calibrating"
-
-for N in 1 .. 4
+for index in 1 .. 5
 do
-    sleep 1 && echo -n "."
+	echo "press enter once in position "
+	read
+
+	#writes to file
+	if [ $index == 1 ]
+	then
+	./myo_collect > $POS &
+	else
+	./myo_collect >> $POS &
+	fi
+
+	PID=$!
+	sleep 1
+	echo -n "calibrating"
+
+	for N in 1 .. 4
+	do
+	    sleep 1 && echo -n "."
+	done
+	
+	#ends calibration if small amount of data
+	#only covers first calibration malfunction
+	lines = wc -l $POS
+	if [ $lines -lt 10 ] 
+	then
+		echo "There was a problem getting data from the Myo"
+		echo "Resync the device and try calibrating again"			
+		break
+	fi
+
+	sleep 1
+	kill $PID #silence
+
+	echo "rest your arm"
+	sleep 3
+	echo
 done
-
-echo
-
-sleep 1 && kill $PID | /dev/null
-
-
-echo "press enter when in resting position"
-read
-
-./myo_collect > $REST &
-PID=$!
-sleep 1 && echo -n "calibrating"
-
-for N in 1 .. 4
-do
-    sleep 1 && echo -n "."
-done
-
-echo
-
-sleep 1 && kill $PID | /dev/null
-
